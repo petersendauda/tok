@@ -15,379 +15,171 @@ class QuestionWidgetState extends State<QuestionWidget> {
   final TextEditingController _name = TextEditingController();
   final TextEditingController _phonenumber = TextEditingController();
   final TextEditingController _subject = TextEditingController();
-
   String? _issuecategory = "";
 
   @override
   Widget build(BuildContext context) {
+    final screenSize = MediaQuery.of(context).size;
+    final isSmallScreen = screenSize.width < 600;
+
     return AlertDialog(
-      actions: [
-        Container(
-          width: 1000,
-          height: 700,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 40),
-                child: Row(
-                  children: [
-                    Text(
-                      '---------------------------------------------------------------------------------------',
-                      style: TextStyle(color: Colors.black),
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                      child: Text(
-                        'How can we assist you?',
-                        style: TextStyle(
-                            color: Colors.black,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20),
-                      ),
-                    ),
-                    Text(
-                      '---------------------------------------------------------------------------------------',
-                      style: TextStyle(color: Colors.black),
-                    ),
-                  ],
-                ),
+      content: Container(
+        width: screenSize.width * 0.8,
+        height: screenSize.height * 0.8,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'How can we assist you?',
+              style: TextStyle(
+                color: Colors.black,
+                fontWeight: FontWeight.bold,
+                fontSize: screenSize.width * 0.02,
               ),
-              SizedBox(
-                height: 15,
-              ),
-              Row(
-                children: [
-                  Flexible(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Name',
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        FormBuilder(
-                            child: TextFormField(
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.black,
-                          ),
-                          validator: (Value) {
-                            if (Value!.isEmpty) {
-                              return 'This Field is Required';
-                            }
-                            return null;
-                          },
-                          controller: _name,
-                          decoration: InputDecoration(
-                              enabledBorder: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: Colors.grey, width: 0.5),
-                              ),
-                              labelText: "Please enter your full name"),
-                          onFieldSubmitted: (value) {
-                            if (value.isNotEmpty) {
-                              setState(() {
-                                _name;
-                              });
-                            }
-                          },
-                        )),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Row(
-                children: [
-                  Flexible(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Email',
-                            style: TextStyle(fontWeight: FontWeight.bold)),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        FormBuilder(
-                            child: TextFormField(
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.black,
-                          ),
-                          validator: (Value) {
-                            if (Value!.isEmpty) {
-                              return 'This Field is Required';
-                            }
-                            return null;
-                          },
-                          controller: _emailaddress,
-                          decoration: InputDecoration(
-                              enabledBorder: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: Colors.grey, width: 0.5),
-                              ),
-                              labelText: "Please enter your email address"),
-                          onFieldSubmitted: (value) {
-                            if (value.isNotEmpty) {
-                              setState(() {
-                                _emailaddress;
-                              });
-                            }
-                          },
-                        )),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Row(
-                children: [
-                  Text('What kind of issues are you facing',
-                      style: TextStyle(fontWeight: FontWeight.bold)),
-                ],
-              ),
-              SizedBox(
-                height: 5,
-              ),
-              Row(
-                children: [
-                  Flexible(
-                      child: FormBuilderDropdown(
-                    dropdownColor: Colors.white,
-                    name: 'Issue Category',
-                    decoration: const InputDecoration(
-                      labelText: 'Issue Category',
-                      labelStyle: TextStyle(
-                          // fontFamily:
-                          //     'Montserrat',
-                          fontSize: 14),
-                      hintStyle: TextStyle(
-                          // fontFamily:
-                          //     'Montserrat',
-                          fontSize: 14),
-                      hintText: 'Please select a category',
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.black, width: 0.5),
-                      ),
-                      border: OutlineInputBorder(
-                        borderSide: BorderSide(color: Colors.black, width: 0.5),
-                      ),
-                    ),
-                    onChanged: (value) {
-                      setState(() {
-                        _issuecategory = value.toString();
-                      });
-                    },
-                    items: [
-                      DropdownMenuItem(
-                        child: Text('Select'),
-                      ),
-                      DropdownMenuItem(
-                        child: Text('Login Issues'),
-                        value: "Login Issues",
-                      ),
-                      DropdownMenuItem(
-                        child: Text('Option 2'),
-                        value: "Option 2",
-                      ),
-                      DropdownMenuItem(
-                        child: Text('Option 3'),
-                        value: "Option 3",
-                      ),
-                    ],
-                  )),
-                ],
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Row(
-                children: [
-                  Flexible(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Phone Number',
-                          style: TextStyle(fontWeight: FontWeight.bold),
-                        ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        FormBuilder(
-                            child: TextFormField(
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.black,
-                          ),
-                          validator: (Value) {
-                            if (Value!.isEmpty) {
-                              return 'This Field is Required';
-                            }
-                            return null;
-                          },
-                          controller: _phonenumber,
-                          decoration: InputDecoration(
-                              enabledBorder: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: Colors.grey, width: 0.5),
-                              ),
-                              prefixText: "+232",
-                              prefixStyle:
-                                  TextStyle(fontWeight: FontWeight.bold),
-                              labelText: "Please enter your phone number"),
-                          onFieldSubmitted: (value) {
-                            if (value.isNotEmpty) {
-                              setState(() {
-                                _phonenumber;
-                              });
-                            }
-                          },
-                        )),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Row(
-                children: [
-                  Flexible(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Description',
-                            style: TextStyle(fontWeight: FontWeight.bold)),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        FormBuilder(
-                            child: TextFormField(
-                          keyboardType: TextInputType.multiline,
-                          maxLines: null,
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: Colors.black,
-                          ),
-                          validator: (Value) {
-                            if (Value!.isEmpty) {
-                              return 'This Field is Required';
-                            }
-                            return null;
-                          },
-                          controller: _subject,
-                          decoration: InputDecoration(
-                              enabledBorder: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: Colors.grey, width: 0.5),
-                              ),
-                              labelText: "Please explain your issue"),
-                          onFieldSubmitted: (value) {
-                            if (value.isNotEmpty) {
-                              setState(() {
-                                _subject;
-                              });
-                            }
-                          },
-                        )),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              Text(
-                'Please describe the issue',
-                style: TextStyle(color: Colors.red, fontSize: 15),
-              ),
-              SizedBox(
-                height: 15,
-              ),
-              Row(
-                children: [
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    style: ButtonStyle(
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20.0),
-                          side: BorderSide(
-                              color: Color(
-                                  0xFF6D1813)), // Adjust border color here
-                        ),
-                      ),
-                      backgroundColor:
-                          MaterialStateProperty.all<Color>(Colors.transparent),
-                      elevation:
-                          MaterialStateProperty.all<double>(0), // No shadow
-                      overlayColor: MaterialStateProperty.resolveWith<Color>(
-                        (Set<MaterialState> states) {
-                          if (states.contains(MaterialState.pressed)) {
-                            return Colors.white.withOpacity(0.2);
-                          }
-                          return Color.fromARGB(255, 193, 41, 30);
-                        },
-                      ),
-                    ),
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.cancel_outlined,
-                          color: Color(0xFF6D1813),
-                        ),
-                        Text(
-                          'Cancel',
-                          style: TextStyle(
-                              fontSize: 20,
-                              color: Color(0xFF6D1813),
-                              fontWeight: FontWeight.bold),
-                        ),
-                        SizedBox(
-                          width: 6,
-                        ),
-                      ],
-                    ),
-                  ),
-                  SizedBox(
-                    width: 700,
-                  ),
-                  ElevatedButton(
-                      onPressed: () {},
-                      style: ButtonStyle(
-                        backgroundColor:
-                            MaterialStateProperty.all<Color>(Color(0xFF6D1813)),
-                      ),
-                      child: Text(
-                        'Raise Issue',
-                        style: TextStyle(
-                          // fontSize: 22,
-                          color: Colors.white,
-                        ),
-                      )),
-                ],
-              ),
-            ],
+              textAlign: TextAlign.center,
+            ),
+            SizedBox(height: screenSize.height * 0.01),
+            buildFormField('Name', _name, screenSize),
+            buildFormField('Email', _emailaddress, screenSize),
+            buildFormField('Phone Number', _phonenumber, screenSize),
+            buildDropdown(screenSize),
+            buildFormField('Description', _subject, screenSize),
+            SizedBox(height: screenSize.height * 0.01),
+            Row(
+              mainAxisAlignment: isSmallScreen
+                  ? MainAxisAlignment.center
+                  : MainAxisAlignment.spaceBetween,
+              children: [
+                buildButton('Cancel', Icons.cancel_outlined, () {
+                  Navigator.of(context).pop();
+                }, screenSize, isPrimary: false),
+                SizedBox(width: screenSize.width * 0.01),
+                buildButton('Raise Issue', null, () {}, screenSize,
+                    isPrimary: true),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget buildFormField(
+      String label, TextEditingController controller, Size screenSize) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: TextStyle(
+              fontWeight: FontWeight.bold, fontSize: screenSize.width * 0.015),
+        ),
+        TextFormField(
+          controller: controller,
+          style: TextStyle(fontSize: screenSize.width * 0.012),
+          decoration: InputDecoration(
+            border: OutlineInputBorder(),
+            contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
           ),
         ),
+        SizedBox(height: screenSize.height * 0.01),
       ],
+    );
+  }
+
+  Widget buildDropdown(Size screenSize) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'What kind of issues are you facing',
+          style: TextStyle(
+              fontWeight: FontWeight.bold, fontSize: screenSize.width * 0.015),
+        ),
+        FormBuilderDropdown(
+          name: 'Issue Category',
+          decoration: InputDecoration(
+            labelText: 'Issue Category',
+            labelStyle: TextStyle(fontSize: screenSize.width * 0.012),
+            hintStyle: TextStyle(fontSize: screenSize.width * 0.012),
+            contentPadding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+            border: OutlineInputBorder(),
+          ),
+          onChanged: (value) {
+            setState(() {
+              _issuecategory = value.toString();
+            });
+          },
+          items: [
+            DropdownMenuItem(child: Text('Select'), value: ''),
+            DropdownMenuItem(
+                child: Text('Login Issues'), value: 'Login Issues'),
+            DropdownMenuItem(child: Text('Option 2'), value: 'Option 2'),
+            DropdownMenuItem(child: Text('Option 3'), value: 'Option 3'),
+          ],
+        ),
+        SizedBox(height: screenSize.height * 0.01),
+      ],
+    );
+  }
+
+  Widget buildButton(
+      String text, IconData? icon, VoidCallback onPressed, Size screenSize,
+      {bool isPrimary = false}) {
+    final buttonStyle = ButtonStyle(
+      backgroundColor: MaterialStateProperty.resolveWith<Color>(
+        (Set<MaterialState> states) {
+          if (states.contains(MaterialState.hovered)) {
+            return Color(0xFF6D1813);
+          }
+          return isPrimary ? Color(0xFF6D1813) : Colors.transparent;
+        },
+      ),
+      foregroundColor: MaterialStateProperty.resolveWith<Color>(
+        (Set<MaterialState> states) {
+          if (states.contains(MaterialState.hovered) || isPrimary) {
+            return Colors.white;
+          }
+          return Color(0xFF6D1813);
+        },
+      ),
+      side: MaterialStateProperty.all(
+        BorderSide(color: Color(0xFF6D1813)),
+      ),
+      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+        RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16.0),
+        ),
+      ),
+    );
+
+    final buttonWidget = isPrimary
+        ? ElevatedButton(
+            onPressed: onPressed,
+            style: buttonStyle,
+            child: _buildButtonContent(text, icon, screenSize),
+          )
+        : OutlinedButton(
+            onPressed: onPressed,
+            style: buttonStyle,
+            child: _buildButtonContent(text, icon, screenSize),
+          );
+
+    return buttonWidget;
+  }
+
+  Widget _buildButtonContent(String text, IconData? icon, Size screenSize) {
+    return Padding(
+      padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          if (icon != null) Icon(icon, size: screenSize.width * 0.015),
+          if (icon != null) SizedBox(width: 4),
+          Text(text, style: TextStyle(fontSize: screenSize.width * 0.012)),
+        ],
+      ),
     );
   }
 }

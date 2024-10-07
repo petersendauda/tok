@@ -1,7 +1,8 @@
-import 'package:flutter_slider_drawer/flutter_slider_drawer.dart';
 import 'package:flutter/material.dart';
+import 'package:tok/modules/screens/finya.dart';
 import 'package:tok/modules/welcome.dart';
-import 'package:webview_flutter/webview_flutter.dart';
+import 'package:provider/provider.dart';
+import '../widget/theme/theme_provider.dart';
 
 import '../modules/screens/discover.dart';
 
@@ -18,8 +19,9 @@ class DrawerWidget extends StatefulWidget {
 class _DrawerWidgetState extends State<DrawerWidget> {
   @override
   Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
     return Container(
-      color: Theme.of(context).colorScheme.primary,
+      color: themeProvider.themeData.colorScheme.primary,
       padding: const EdgeInsets.only(top: 30),
       // width: 1000,
       child: ListView(
@@ -30,11 +32,11 @@ class _DrawerWidgetState extends State<DrawerWidget> {
           ListTile(
             leading: Icon(
               Icons.home_outlined,
-              color: Theme.of(context).colorScheme.tertiary,
+              color: themeProvider.themeData.colorScheme.tertiary,
             ),
             title: Text(
               'Home',
-              style: TextStyle(color: Theme.of(context).colorScheme.tertiary),
+              style: TextStyle(color: themeProvider.themeData.colorScheme.tertiary),
             ),
             onTap: () {
               Navigator.pop(context);
@@ -49,7 +51,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
           ListTile(
             leading: Icon(
               Icons.search,
-              color: Theme.of(context).colorScheme.tertiary,
+              color: themeProvider.themeData.colorScheme.tertiary,
             ),
             title: Text(
               'Discover',
@@ -67,7 +69,7 @@ class _DrawerWidgetState extends State<DrawerWidget> {
           ListTile(
             leading: Icon(
               Icons.notifications_none,
-              color: Theme.of(context).colorScheme.tertiary,
+              color: themeProvider.themeData.colorScheme.tertiary,
             ),
             title: Text('Notification'),
             onTap: () {
@@ -82,8 +84,24 @@ class _DrawerWidgetState extends State<DrawerWidget> {
           Divider(),
           ListTile(
             leading: Icon(
+              Icons.notifications_none,
+              color: themeProvider.themeData.colorScheme.tertiary,
+            ),
+            title: Text('Finya'),
+            onTap: () {
+              Navigator.pop(context);
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => FinyaWidget(),
+                  ));
+            },
+          ),
+          Divider(),
+          ListTile(
+            leading: Icon(
               Icons.bookmark_border,
-              color: Theme.of(context).colorScheme.tertiary,
+              color: themeProvider.themeData.colorScheme.tertiary,
             ),
             title: Text('Saved'),
             onTap: () {
@@ -96,21 +114,21 @@ class _DrawerWidgetState extends State<DrawerWidget> {
             },
           ),
           Divider(),
-          ListTile(
-            leading: Icon(
-              Icons.home_max_outlined,
-              color: Theme.of(context).colorScheme.tertiary,
-            ),
-            title: Text('Finya'),
-            onTap: () {
-              Navigator.pop(context);
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => FinyaWidget(),
-                  ));
-            },
-          ),
+          // ListTile(
+          //   leading: Icon(
+          //     Icons.home_max_outlined,
+          //     color: Theme.of(context).colorScheme.tertiary,
+          //   ),
+          //   title: Text('Finya'),
+          //   onTap: () {
+          //     Navigator.pop(context);
+          //     Navigator.push(
+          //         context,
+          //         MaterialPageRoute(
+          //           builder: (context) => FinyaWidget(),
+          //         ));
+          //   },
+          // ),
           Divider(),
           ListTile(
             leading: Icon(Icons.settings),
